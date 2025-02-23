@@ -1,0 +1,10 @@
+git:latest
+kubernetes:latest
+docker-plugin:latest
+gitlab-plugin:latest
+workflow-api:latest
+workflow-job:latest
+workflow-support:latest
+workflow-aggregator:latest
+credentials:latest
+credentials-binding:latest

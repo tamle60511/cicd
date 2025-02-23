@@ -1,0 +1,53 @@
+# Use root/example as user/password credentials
+
+services:
+  jenkins:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    # network_mode: bridge
+    networks: 
+      - minikube
+    restart: always
+    environment:
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: 1
+      DOCKER_HOST: tcp://docker:2376
+    privileged: true
+    tty: true
+    ports:
+      - 8081:8080
+      - 50000:50000
+    volumes:
+      - ~/build/cicd/jenkins-data:/var/jenkins_home 
+      - ~/build/cicd/jenkins-docker-certs:/certs/client:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    external_links: 
+      - jenkins-docker:docker
+      - minikube:minikube
+    depends_on:
+      - jenkins-docker
+    container_name: jenkins
+  jenkins-docker:
+    image: docker:dind
+    restart: always
+    # network_mode: bridge
+    networks: 
+      - minikube
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    ports:
+      - 2376:2376
+      - 2375:2375
+    tty: true
+    volumes:
+      - ~/build/cicd/jenkins-data:/var/jenkins_home 
+      - ~/build/cicd/jenkins-docker-certs:/certs/client
+    container_name: jenkins-docker
+    command: --storage-driver=overlay2
+
+networks:
+  minikube:
+    name: minikube
+    external: true

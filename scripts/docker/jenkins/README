@@ -1,0 +1,7 @@
+config-file: ~/.kube/config
+command: openssl pkcs12 -export -out cert.pfx \
+    -inkey /Users/tamle/.minikube/profiles/minikube/client.key \
+    -in /Users/tamle/.minikube/profiles/minikube/client.crt \
+    -certfile /Users/tamle/.minikube/ca.crt
+cert-file: cert.pfx
+pass: 123

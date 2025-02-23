@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-deployment
+  labels:
+    name: result-reployment
+    app: demo-voting-app
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result-pod
+      app: demo-voting-app
+  template:
+    metadata:
+      name: result-pod
+      labels:
+        name: result-pod
+        app: demo-voting-app
+    spec:
+      containers:
+        - name: result-app
+          image: kodekloud/examplevotingapp_result:v1
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      nodeSelector:
+        name: large
+        size: large
+        abc: asdf 
+---
+apiVersion: v1 
+kind: Service
+metadata: 
+  name:  result-service
+  labels:
+    name: result-service
+    app: demo-voting-app
+spec:
+  # type: NodePort
+  # ports:
+  #   - port: 80
+  #     targetPort: 80
+  #     nodePort: 30005
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    name: result-pod
+    app: demo-voting-app

@@ -1,0 +1,68 @@
+version: 0.1
+log:
+  level: debug
+  fields:
+    service: registry
+    environment: development
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+  ###### config azure
+  # azure:
+  #   accountname: <your account name>
+  #   accountkey: <your base64 encoded account key>
+  #   container: <your container>
+  #   realm: core.windows.net
+  ###### config aws
+  # s3:
+  #   accesskey: <your awsaccesskey>
+  #   secretkey: <your awssecretkey>
+  #   region: <your bucket region>
+  #   bucket: <your bucketname>
+  #   encrypt: true
+  #   secure: true
+  #   v4auth: true
+  #   chunksize: 5242880
+  #   rootdirectory: /s3/object/name/prefix
+  ###### config RADOS http://ceph.com
+  # rados:
+  #   poolname: radospool
+  #   username: radosuser
+  #   chunksize: 4194304s
+  cache:
+    layerinfo: inmemory
+    # blobdescriptor: redis
+    
+  maintenance:
+    uploadpurging:
+      enabled: false
+# redis:
+#   addr: redis-host:6379
+#   password: asecret
+#   dialtimeout: 10ms
+#   readtimeout: 10ms
+#   writetimeout: 10ms
+#   pool:
+#   maxidle: 16
+#   maxactive: 64
+#   idletimeout: 300s
+# middleware:
+#   storage:
+#     - name: cloudfront
+#       options:
+#       baseurl: <https://my.cloudfronted.domain.com/>
+#       privatekey: </path/to/pem>
+#       keypairid: <cloudfrontkeypairid>
+#       duration: 3000
+http:
+  addr: :5000
+  secret: asecretforlocaldevelopment # that means REGISTRY_HTTP_SECRET env
+  tls:
+    certificate: /etc/nginx/conf.d/localhost.crt
+    key: /etc/nginx/conf.d/localhost.key
+  debug:
+    addr: localhost:5001
+auth:
+  htpasswd:
+    realm: registry.localhost
+    path: /etc/nginx/conf.d/registry.password 

@@ -1,0 +1,26 @@
+version: 0.1
+log:
+  level: debug
+  fields:
+    service: registry
+    environment: development
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+  cache:
+    layerinfo: inmemory
+  maintenance:
+    uploadpurging:
+      enabled: false
+http:
+  addr: :5000
+  secret: asecretforlocaldevelopment
+  tls:
+    certificate: /localhost.crt
+    key: /localhost.key
+  debug:
+    addr: localhost:5001
+auth:
+  htpasswd:
+    realm: registry.localhost
+    path: /registry.password 

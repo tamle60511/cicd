@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nginx
+spec:
+  selector:
+    matchLabels:
+      type: nginx
+      app: myapp
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      name: nginx
+      labels:
+        type: nginx
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: {{ .Values.image.repository }}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

@@ -1,0 +1,32 @@
+## worker-deployment with labels app demo-voting-app from kodekloud/examplevotingapp_worker:v1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    name: worker-deployment
+    app: demo-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker-pod
+      app: demo-voting-app
+  template:
+    metadata:
+      labels:
+        name: worker-pod
+        app: demo-voting-app
+    spec:
+      containers:
+        - name: worker
+          image: kodekloud/examplevotingapp_worker:v1
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
