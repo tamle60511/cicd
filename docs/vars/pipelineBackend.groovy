@@ -57,7 +57,7 @@ def call(String service = 'cms') {
                     def gitCommitID = sh(script: "git log --pretty=format:'%h' -n 1", returnStdout: true).trim()
                     def message =  sh(script: "git log --format=%B -n 1 ${gitCommitID}", returnStdout: true).trim()
                     echo "message: ${message}"
-                    withCredentials([usernamePassword(credentialsId: "github-ci", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: "github-tamle60511", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         def uri ="https://${GIT_USERNAME}:${GIT_PASSWORD}@${url}"
                         sh "git config user.email \"${gitEmail}\""
                         sh "git config user.name \"${gitName}\""
@@ -81,13 +81,7 @@ def call(String service = 'cms') {
                 }
 
                 stage('PUSH IMAGE') {
-                    app.push()
-                    if (scmVars.GIT_BRANCH ==~ /.*main.*/) {
-                        // sh "docker tag ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ${env.DOCKER_IMAGE}:latest"
-                        // sh "docker push ${env.DOCKER_IMAGE}:latest"
-                        // sh "docker rm -f ${env.DOCKER_IMAGE}:latest"
-                        app.push('latest')
-                    }
+                    app.push('latest')
                 }
 
                 stage('TRIGGER TO DEPLOY') {
