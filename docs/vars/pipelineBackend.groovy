@@ -53,6 +53,7 @@ def call(String service = 'cms') {
                     echo "tag: ${tag}"
                     echo "Git URL: ${scmVars.GIT_URL}"
                     def url = scmVars.GIT_URL.substring(8)
+                    echo "url: ${url}"
                     
                     def gitCommitID = sh(script: "git log --pretty=format:'%h' -n 1", returnStdout: true).trim()
                     def message =  sh(script: "git log --format=%B -n 1 ${gitCommitID}", returnStdout: true).trim()
