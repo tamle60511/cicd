@@ -35,7 +35,7 @@ docker run --name jenkins --rm --detach --privileged \
 ```
 - Thirdly, let’s start with setting up 
     - After jenkins started as illustration below ⇒ http://localhost:8081/login?from=%2F
-    ![screenshot](images/Screenshot 2024-03-04 at 12.40.39.png)
+    ![screenshot](images/started-jenkins.png)
     - Perform command to get admin password and input into box ⇒ continue 
     ```
     docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
