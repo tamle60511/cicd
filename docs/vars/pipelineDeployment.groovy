@@ -17,7 +17,7 @@ def call(String name = 'jenkins') {
                 }
 
                 stage('CHECKOUT') {
-                    withCredentials([usernamePassword(credentialsId: "github-tamle6099", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: "github-tamle60511", passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         git branch: "main", changelog: false, poll: false, url: "https://${GIT_USERNAME}:${GIT_PASSWORD}@${gitURL}"
                     }
                 }
