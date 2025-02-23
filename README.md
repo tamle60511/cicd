@@ -46,3 +46,39 @@ docker run --name jenkins --rm --detach --privileged \
     ![screenshot](images/create-account-jenkins.png)
     - Consider changing localhost into my IP address to easy to connect with outside 
     ![screenshot](images/configuration-instance-jenkins.png)
+
+## STEPS 
+We will need to setup step by step to connect to docker, k8s.
+### DOCKER
+Because I'm setting up at local, I must connect my jenkins to docker throughout docker in docker (dind)
+```
+ --volume ~/build/cicd/jenkins-data:/var/jenkins_home \
+ --volume ~/build/cicd/jenkins-docker-certs:/certs/client:ro \
+```
+could you see this code when building docker for jenkins 
+At there, we found three files including ca.pem, cert.pem, key.pem and we have to create x059 to allow for jenkins to connect local docker 
+![screenshoot](images/cert-setup.png)
+- Client Key: key.pem
+- Client Certificate: cert.pem
+- Server CA Certificate: ca.pem
+The rest of this step is to create new cloud of docker type like that
+![screenshot](images/docker-cloud-setup.png)
+DONE!!!!
+### Kubernetes
+We need to find the certificate of K8S to be allowed connection to K8S from jenkins
+because I'm using docker desktop, I can find it out at `~/.kube/config `
+and then, we will create certificate for kubernetes like that
+![screenshot](images/k8s-setup.png)
+DONE!!!!
+### PIPELINE
+After that, we only build one pipeline for application of repo to reach the goal 
+we just follow this steps at all 
+the first, we will choose `new item` and click `pipeline`
+![screenshot](images/create-jobs.png)
+the second, we will set up for our jobs connect to github
+![screenshot](images/job-setup.png)
+![screenshot](images/job-setup-1.png)
+
+## RESULT
+After all, we just await for the result as our dream
+![screenshot](images/result.png)
