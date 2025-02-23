@@ -41,8 +41,8 @@ docker run --name jenkins --rm --detach --privileged \
     docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
     ```
     - Press Install with Plugin
-    ![screenshot](images/Screenshot 2024-03-04 at 12.43.08.png)
+    ![screenshot](images/getting-started-jenkins.png)
     - Fill in the form as our expected ⇒ admin for all =))))
-    ![screenshot](images/Screenshot 2025-02-23 at 22.06.13.png)
+    ![screenshot](images/create-account-jenkins.png)
     - Consider changing localhost into my IP address to easy to connect with outside 
-    ![screenshot](images/Screenshot 2024-03-04 at 12.45.59.png)
+    ![screenshot](images/configuration-instance-jenkins.png)
